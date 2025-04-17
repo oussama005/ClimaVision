@@ -5,6 +5,7 @@ import type { ForecastData } from "@/api/types";
 
 interface WeatherForecastProps {
   data: ForecastData;
+  days?: number;
 }
 
 interface DailyForecast {
@@ -21,8 +22,7 @@ interface DailyForecast {
   };
 }
 
-export function WeatherForecast({ data }: WeatherForecastProps) {
-  // Group forecast by day and get daily min/max
+export function WeatherForecast({ data, days = 10 }: WeatherForecastProps) {
   const dailyForecasts = data.list.reduce((acc, forecast) => {
     const date = format(new Date(forecast.dt * 1000), "yyyy-MM-dd");
 
@@ -43,23 +43,21 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
     return acc;
   }, {} as Record<string, DailyForecast>);
 
-  // Get next 5 days
-  const nextDays = Object.values(dailyForecasts).slice(1, 6);
+  const nextDays = Object.values(dailyForecasts).slice(1, days + 1);
 
-  // Format temperature
   const formatTemp = (temp: number) => `${Math.round(temp)}°`;
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
-        <CardTitle>5-Day Forecast</CardTitle>
+        <CardTitle>{days}-Day Forecast</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4">
+        <div className="space-y-3">
           {nextDays.map((day) => (
             <div
               key={day.date}
-              className="grid grid-cols-3 items-center gap-4 rounded-lg border p-4"
+              className="grid grid-cols-3 items-center gap-3 rounded-lg border p-3"
             >
               <div>
                 <p className="font-medium">
@@ -88,7 +86,7 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
                 </span>
                 <span className="flex items-center gap-1">
                   <Wind className="h-4 w-4 text-blue-500" />
-                  <span className="text-sm">{day.wind}m/s</span>
+                  <span className="text-sm">{Math.round(day.wind)}m/s</span>
                 </span>
               </div>
             </div>

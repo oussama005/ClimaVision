@@ -9,7 +9,20 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-  		colors: {
+		fontFamily: {
+			sans: ['Segoe UI', 'Poppins', 'sans-serif'],
+		  }
+		,
+		animation: {
+			fadeIn: 'fadeIn 1s ease-out',
+		},
+		  keyframes: {
+			fadeIn: {
+			  from: { opacity: '0', transform: 'translateY(30px)' },
+			  to: { opacity: '1', transform: 'translateY(0)' },
+		},
+		},
+		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -54,4 +67,4 @@ export default {
   	}
   },
   plugins: [require("tailwindcss-animate")],
-};
+}

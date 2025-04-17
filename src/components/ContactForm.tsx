@@ -1,9 +1,12 @@
+//contactform.tsx
+import { Footer } from "./Footer";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 
 export default function ContactForm() {
   return (
+    <>
     <form className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
@@ -35,5 +38,7 @@ export default function ContactForm() {
         Envoyer le message
       </Button>
     </form>
+    <Footer className="mt-8" />
+    </>
   );
 }

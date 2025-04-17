@@ -1,3 +1,4 @@
+//aboutPage.tsx
 import { Globe, Shield, BarChart2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Footer } from "./Footer";
@@ -27,7 +28,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
               <p className="mb-6 text-lg leading-relaxed">
-                Founded in 2023, ClimaVision combines meteorological expertise with AI technology
+                Founded in 2024, ClimaVision combines meteorological expertise with AI technology
                 to deliver the most accurate weather predictions available anywhere.
               </p>
               <p className="text-lg leading-relaxed">

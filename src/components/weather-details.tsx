@@ -10,12 +10,10 @@ interface WeatherDetailsProps {
 export function WeatherDetails({ data }: WeatherDetailsProps) {
   const { wind, main, sys } = data;
 
-  // Format time using date-fns
   const formatTime = (timestamp: number) => {
     return format(new Date(timestamp * 1000), "h:mm a");
   };
 
-  // Convert wind degree to direction
   const getWindDirection = (degree: number) => {
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
     const index =
@@ -51,12 +49,12 @@ export function WeatherDetails({ data }: WeatherDetailsProps) {
   ];
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <CardTitle>Weather Details</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-4">
           {details.map((detail) => (
             <div
               key={detail.title}

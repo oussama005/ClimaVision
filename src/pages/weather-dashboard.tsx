@@ -1,4 +1,3 @@
-// weather-dashboard.tsx
 import {
   useForecastQuery,
   useReverseGeocodeQuery,
@@ -14,7 +13,8 @@ import { WeatherForecast } from "../components/weather-forecast";
 import { HourlyTemperature } from "../components/hourly-temprature";
 import WeatherSkeleton from "../components/loading-skeleton";
 import { CitySearch } from "@/components/city-search";
-import { FavoriteCities } from "@/components/favorite-cities"; // Adjust the path if necessary
+import { FavoriteCities } from "@/components/favorite-cities";
+import { WeatherCharts } from "../components/weather-charts";
 
 export function WeatherDashboard() {
   const {
@@ -28,7 +28,6 @@ export function WeatherDashboard() {
   const forecastQuery = useForecastQuery(coordinates);
   const locationQuery = useReverseGeocodeQuery(coordinates);
 
-  // Function to refresh all data
   const handleRefresh = () => {
     getLocation();
     if (coordinates) {
@@ -101,21 +100,21 @@ export function WeatherDashboard() {
       <FavoriteCities />
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">My Location</h1>
-        <CitySearch />
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handleRefresh}
-          disabled={weatherQuery.isFetching || forecastQuery.isFetching}
-        >
-          <RefreshCw
-            className={`h-4 w-4 ${
-              weatherQuery.isFetching ? "animate-spin" : ""
-            }`}
-          />
-         
-        </Button>
-       
+        <div className="flex items-center gap-2">
+          <CitySearch />
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleRefresh}
+            disabled={weatherQuery.isFetching || forecastQuery.isFetching}
+          >
+            <RefreshCw
+              className={`h-4 w-4 ${
+                weatherQuery.isFetching ? "animate-spin" : ""
+              }`}
+            />
+          </Button>
+        </div>
       </div>
 
       <div className="grid gap-6">
@@ -124,13 +123,19 @@ export function WeatherDashboard() {
             data={weatherQuery.data}
             locationName={locationName}
           />
-          <HourlyTemperature data={forecastQuery.data} />
+          <HourlyTemperature data={forecastQuery.data} days={1} />
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 items-start">
-          <WeatherDetails data={weatherQuery.data} />
-          <WeatherForecast data={forecastQuery.data} />
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex-1 min-w-0">
+            <WeatherDetails data={weatherQuery.data} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <WeatherForecast data={forecastQuery.data} days={10} />
+          </div>
         </div>
+
+        <WeatherCharts forecastData={forecastQuery.data} />
       </div>
     </div>
   );

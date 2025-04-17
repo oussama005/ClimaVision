@@ -24,7 +24,16 @@ class WeatherAPI {
 
     return response.json();
   }
-
+// Dans weather-api.ts
+async getExtendedForecast({ lat, lon }: Coordinates): Promise<ForecastData> {
+  const url = this.createUrl(`${API_CONFIG.BASE_URL}/forecast`, {
+    lat: lat.toString(),
+    lon: lon.toString(),
+    units: "metric",
+    cnt: "80" // Augmenter le nombre de prévisions (5 jours = 40, 10 jours = 80)
+  });
+  return this.fetchData<ForecastData>(url);
+}
   async getCurrentWeather({ lat, lon }: Coordinates): Promise<WeatherData> {
     const url = this.createUrl(`${API_CONFIG.BASE_URL}/weather`, {
       lat: lat.toString(),

@@ -43,12 +43,23 @@ export interface WeatherData {
   dt: number;
 }
 
+// types.ts
 export interface ForecastData {
   list: Array<{
     dt: number;
-    main: WeatherData["main"];
-    weather: WeatherData["weather"];
-    wind: WeatherData["wind"];
+    main: {
+      temp: number;
+      feels_like: number;
+      temp_min: number;
+      temp_max: number;
+      pressure: number;
+      humidity: number;
+    };
+    weather: WeatherCondition[];
+    wind: {
+      speed: number;
+      deg: number;
+    };
     dt_txt: string;
   }>;
   city: {
@@ -58,3 +69,20 @@ export interface ForecastData {
     sunset: number;
   };
 }
+
+export interface NewsArticle {
+  title: string;
+  description: string;
+  url: string;
+  urlToImage?: string;
+  publishedAt: string;
+  source: {
+    name: string;
+  };
+}
+export type AIMessage = {
+  id: string;
+  content: string;
+  role: 'user' | 'assistant';
+  timestamp: Date;
+};

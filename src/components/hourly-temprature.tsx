@@ -12,6 +12,7 @@ import type { ForecastData } from "@/api/types";
 
 interface HourlyTemperatureProps {
   data: ForecastData;
+  days?: number;
 }
 
 interface ChartData {
@@ -20,11 +21,12 @@ interface ChartData {
   feels_like: number;
 }
 
-export function HourlyTemperature({ data }: HourlyTemperatureProps) {
-  // Get today's forecast data and format for chart
+export function HourlyTemperature({ data, days = 1 }: HourlyTemperatureProps) {
+  // Calculate the number of items to show based on days (3-hour intervals)
+  const itemsToShow = days * 8;
 
   const chartData: ChartData[] = data.list
-    .slice(0, 8) // Get next 24 hours (3-hour intervals)
+    .slice(0, itemsToShow)
     .map((item) => ({
       time: format(new Date(item.dt * 1000), "ha"),
       temp: Math.round(item.main.temp),
@@ -34,7 +36,9 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
   return (
     <Card className="flex-1">
       <CardHeader>
-        <CardTitle>Today's Temperature</CardTitle>
+        <CardTitle>
+          {days === 1 ? "Today's Temperature" : `${days}-Day Temperature`}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-[200px] w-full">

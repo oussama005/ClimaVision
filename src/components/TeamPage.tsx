@@ -1,3 +1,4 @@
+//teamPgae.tsx
 import { Linkedin, Github, Award, Link } from "lucide-react";
 import { Footer } from "./Footer";
 
@@ -82,12 +83,12 @@ export default function TeamPage() {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             We're always looking for talented individuals passionate about weather technology
           </p>
-          <Link
+          {/* <Link
             to="/contact"
             className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
           >
             View Open Positions
-          </Link>
+          </Link> */}
         </div>
       </section>
          <Footer />
